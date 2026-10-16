@@ -17,6 +17,18 @@ jobs:
           distribution: temurin
           java-version: '25'
 
+      - name: Checkout fabric-permissions-api (26.3 port)
+        uses: actions/checkout@v4
+        with:
+          repository: Guailoudou/fabric-permissions-api-port
+          path: deps/fabric-permissions-api
+
+      - name: Build fabric-permissions-api
+        run: |
+          cd deps/fabric-permissions-api
+          chmod +x gradlew
+          ./gradlew publishToMavenLocal --no-daemon -x test
+
       - name: Build
         run: |
           chmod +x gradlew
